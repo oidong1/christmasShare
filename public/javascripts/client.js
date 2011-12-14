@@ -21,18 +21,6 @@ var request = new XMLHttpRequest();
     gainNode.connect(analyserNode);		//destinationが最終的な出力
     analyserNode.connect(context.destination);	
     
-    var socket = io.connect("http://localhost:3000/");
-    
-    socket.on('connect', function(message){
-      socket.emit('connected');
-    });
-    socket.on('message', function (msg) {
-      //analyzedData = msg;	
-      console.log(msg);
-    });
-    socket.on('count', function (msg) {
-      $("#users").text("いっしょにいる人の数:"+msg+"人");
-    });
     play = function(){
       source.buffer = context.createBuffer(request.response, false);
       source.noteOn(0);
