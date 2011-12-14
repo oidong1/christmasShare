@@ -1,0 +1,11 @@
+body {
+  	padding: 50px;
+	margin: auto;
+	text-align: center;
+	background: url("../images/c9.png");
+  	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  	color: #00B7FF;
+}

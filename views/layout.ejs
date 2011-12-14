@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    	<meta http-equiv="Content-Language" content="ja">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    	<link rel='stylesheet' href='/stylesheets/style.css'>
+    	<script src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="/javascripts/client.js"></script>
+		<script type="text/javascript" src="/javascripts/processing-1.2.1.js"></script>
+       	<script id="processing-code" type="application/processing">
+void setup() {
+    stageX = 250;
+    stageY = 450;
+    size(stageX, stageY);
+    background(0);
+    frameRate(60);
+    increased = floor(analyzedData.length / stageY);
+    colorMode(HSB, 255);
+}
+    
+void draw() {
+    background(0);
+    fill(20,255,180);
+    stroke(20, 255, 180);
+    rect(120,20,10,400);
+    for(i=30;i<=stageY-100;i+=10) {
+        size = analyzedData[increased*i];
+        stroke(size/2, 255, 255);
+        fill(size/2, 255, 255);
+        int x,y;
+        rect((450-size/2*(i/100))/2-100, i, size/2*(i/100), size/4);
+        //rect(0, i, size/4*(i/100), size/4);
+    }
+    drawStar(125,25);
+}
+void drawStar(int x, int y) {
+      fill(40,255,255);
+    stroke(40, 255, 255);
+  beginShape();
+    vertex(x      , y - 20);
+    vertex(x - 12 , y + 15);
+    vertex(x + 18 , y -  8);
+    vertex(x - 18 , y -  8);
+    vertex(x + 12 , y + 15);
+  endShape(CLOSE);
+}
+       </script>    	
+	</head>
+  	<body>
+    	<%- body %>
+  	</body>
+</html>
