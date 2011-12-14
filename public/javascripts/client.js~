@@ -27,7 +27,7 @@ function init() {
             socket.emit('connected');
         });
 		socket.on('message', function (msg) {
-			analyzedData = msg;	
+			//analyzedData = msg;	
 			console.log(msg);
         });
         socket.on('count', function (msg) {

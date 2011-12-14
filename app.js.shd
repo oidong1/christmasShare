@@ -2,7 +2,10 @@
 express = require("express")
 routes = require("./routes")
 app = module.exports = express.createServer()
-io = require("socket.io").listen(app)
+#io = require("socket.io").listen(app)
+http = require 'http'
+url = require 'url'
+
 app.configure ->
   app.set "views", __dirname + "/views"
   app.set "view engine", "ejs"
@@ -23,25 +26,37 @@ app.configure "production", ->
   app.use express.errorHandler()
 
 app.get "/", (req,res) ->
-   res.render "index",
-      title:"ChristmaShare"
+  res.render "index",
+    title:"ChristmaShare"
 
-count = 0
+#リファラのチェックとか追加してください(危険
+app.post '/req', (req, res) ->
+  options = url.parse(req.body.url);
+  http.get options, (res2) ->
+    res2.setEncoding null
+    res2.on 'data', (data) ->
+      res.write(data)
+    res2.on 'end', ->
+      res.end()
+
+
+#count = 0
 #websocket
-io.sockets.on "connection", (client)->
-   
-   count++
 
-   client.broadcast.emit "count",count
-   client.emit "count",count
+#io.sockets.on "connection", (client)->
 
-   client.on "message",(msg)->
-      client.broadcast.emit "message",msg
-      client.send msg
+#  count++
 
-   client.on "disconnect",()->
-      #something
-      count--
+#  client.broadcast.emit "count",count
+#  client.emit "count",count
+
+#  client.on "message",(msg)->
+#    client.broadcast.emit "message",msg
+#    client.send msg
+
+#  client.on "disconnect",()->
+#    #something
+#    count--
 
 app.listen 3000
 console.log "Express server listening on port %d in %s mode", app.address().port
