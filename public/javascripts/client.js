@@ -35,6 +35,7 @@ var request = new XMLHttpRequest();
       var url = $("#url").val();
       var encodedUrl = encodeURI(url);
       request.open("POST", '/req', true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
       request.responseType = "arraybuffer";
       $("#status").text("ready...");	
       console.log($("#url").val());
