@@ -33,6 +33,7 @@ var request = new XMLHttpRequest();
     $("form").submit(function () {
       //var url = "http://localhost:3000/images/xmas-jinglebell2-short.ogg";
       var url = $("#url").val();
+      var encodedUrl = encodeURI(url);
       request.open("POST", '/req', true);
       request.responseType = "arraybuffer";
       $("#status").text("ready...");	
@@ -41,7 +42,7 @@ var request = new XMLHttpRequest();
     	$("#status").text("OK!");
     	play();
       };
-      request.send('url=' + url);
+      request.send('url=' + encodedUrl);
       
       $("#url").val("").blur();
       return false;
